@@ -47,8 +47,7 @@ void PUWeight::initPUWeights(const std::string& nameOfDataDistribution, const PU
 
   // Get data distribution from file
   TFile file(nameOfDataDistribution.c_str(), "READ");
-  TH1* h = NULL;
-  file.GetObject("pileup",h);
+  TH1* h = (TH1D*)file.Get("pileup");
   if( h == NULL ) {
     std::cerr << "\n\nERROR in PUWeight: Histogram 'pileup' does not exist in file '" << nameOfDataDistribution << "'\n.";
     throw std::exception();

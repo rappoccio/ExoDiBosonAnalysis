@@ -123,7 +123,7 @@ ExoDiBosonAnalysis::ExoDiBosonAnalysis()
   nPassedTrkFiltersAll_              = 0;
   nPassedGoodPVFilter_               = 0;
   
-   
+  setPredictedDistribution();
 }
 
 //==============================================================================================
@@ -1231,7 +1231,6 @@ void ExoDiBosonAnalysis::fillHistos( std::string Channel ){
 
       bool tagged = Vcand.at(tag).tau2/Vcand.at(tag).tau1 < 0.6 && Vcand.at(tag).softdropMass > 65. && Vcand.at(tag).softdropMass < 105.;
       hvv_pred->Accumulate( (Vcand.at(0).p4 + Vcand.at(1).p4).M(), Vcand.at(probe).rho, tagged, weight_);
-      
       // std::cout<<"Using SoftdropSubjetCand_[probe][0] with rho == "<<SoftdropSubjetCand_[probe][0].rho<<std::endl;
       // hvv_pred->Accumulate( (SoftdropSubjetCand_[probe][0].p4 + SoftdropSubjetCand_[probe][1].p4).M(),SoftdropSubjetCand_[probe][0].rho, tagged, weight_);
     }
@@ -1650,12 +1649,12 @@ void ExoDiBosonAnalysis::doGroomingStudies(  TString sample  ){
 
 void ExoDiBosonAnalysis::setPredictedDistribution()
 {
-  TFile * f = TFile::Open( "data/mistagRate_mod_wjetsmc.root" );
-  TH1D * hist = (TH1D*)f->Get("rLoMod");
+  fMistag_ = TFile::Open( "data/mistagRate_mod_wjetsmc.root" );
+  hMistag_ = (TH1D*)fMistag_->Get("rLoMod");
 
-
-  hvv_pred = new PredictedDistribution (hist, "hvv_pred", "Predicted VV Mass", 100, 0, 5000); 
+  hvv_pred = new PredictedDistribution (hMistag_, "hvv_pred", "Predicted VV Mass", 100, 0, 5000); 
   hvv_pred->GetTaggableHist()->SetDirectory(0);
   hvv_pred->GetObservedHist()->SetDirectory(0);
   hvv_pred->GetPredictedHist()->SetDirectory(0);
+
 }

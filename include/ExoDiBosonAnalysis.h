@@ -85,6 +85,8 @@ private:
   PUWeight       PUWeight_        ;
   LumiWeight     LumiWeight_      ;
   TH1F*          hPUweights_      ;
+  TFile*         fMistag_         ;
+  TH1D*          hMistag_         ;
 
   std::map<int,TLorentzVector>	genCandidates_	;
   std::vector<LeptonCandidate>	leptonCand_		;
