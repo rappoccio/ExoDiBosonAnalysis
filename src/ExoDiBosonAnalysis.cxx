@@ -128,12 +128,15 @@ ExoDiBosonAnalysis::ExoDiBosonAnalysis()
 
 //==============================================================================================
 ExoDiBosonAnalysis::~ExoDiBosonAnalysis() {
-
-  WriteObj( *(hvv_pred->GetPredictedHist()) );
-  WriteObj( *(hvv_pred->GetTaggableHist()) );
-  WriteObj( *(hvv_pred->GetObservedHist()) );
+  
+  TFile * fout = new TFile("hvv_pred.root", "RECREATE");
+  hvv_pred->GetPredictedHist()->Write();
+  hvv_pred->GetTaggableHist()->Write();
+  hvv_pred->GetObservedHist()->Write();
   if ( hvv_pred )
     delete hvv_pred;
+  if ( fout ) 
+    delete fout;
   if ( hMistag_ )
     delete hMistag_;
   if ( fMistag_ )
@@ -1658,8 +1661,8 @@ void ExoDiBosonAnalysis::setPredictedDistribution()
   hMistag_ = (TH1D*)fMistag_->Get("rLoMod");
 
   hvv_pred = new PredictedDistribution (hMistag_, "hvv_pred", "Predicted VV Mass", 100, 0, 5000); 
-  hvv_pred->GetTaggableHist()->SetDirectory(0);
-  hvv_pred->GetObservedHist()->SetDirectory(0);
-  hvv_pred->GetPredictedHist()->SetDirectory(0);
+  // hvv_pred->GetTaggableHist()->SetDirectory(0);
+  // hvv_pred->GetObservedHist()->SetDirectory(0);
+  // hvv_pred->GetPredictedHist()->SetDirectory(0);
 
 }
