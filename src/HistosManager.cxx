@@ -378,9 +378,5 @@ void HistosManager::formatHistos( std::string Channel_ ){
   Utilities::OverflowToLast( theAnalysis_->Hist( "HadronicbFlavor" ) );
    
  }
-
- theAnalysis_->setPredictedDistribution();
-
-
    
 }

@@ -87,6 +87,7 @@ private:
   TH1F*          hPUweights_      ;
   TFile*         fMistag_         ;
   TH1D*          hMistag_         ;
+  PredictedDistribution * hvv_pred; 
 
   std::map<int,TLorentzVector>	genCandidates_	;
   std::vector<LeptonCandidate>	leptonCand_		;
@@ -266,7 +267,6 @@ private:
   int njets;  //AK4 jets
   int nbtag;  //number of AK4 jets b-tagged with iCSVM 
 
-  PredictedDistribution * hvv_pred; 
 
 }; // class ExoDiBosonAnalysis
 

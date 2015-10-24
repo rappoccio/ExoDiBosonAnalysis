@@ -129,10 +129,15 @@ ExoDiBosonAnalysis::ExoDiBosonAnalysis()
 //==============================================================================================
 ExoDiBosonAnalysis::~ExoDiBosonAnalysis() {
 
-  hvv_pred->GetPredictedHist()->Write();
-  hvv_pred->GetTaggableHist()->Write();
-  hvv_pred->GetObservedHist()->Write();
-  delete hvv_pred;
+  WriteObj( *(hvv_pred->GetPredictedHist()) );
+  WriteObj( *(hvv_pred->GetTaggableHist()) );
+  WriteObj( *(hvv_pred->GetObservedHist()) );
+  if ( hvv_pred )
+    delete hvv_pred;
+  if ( hMistag_ )
+    delete hMistag_;
+  if ( fMistag_ )
+    delete fMistag_;
 	
   if( theHistosManager_ ){
     delete theHistosManager_;
